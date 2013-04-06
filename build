@@ -1,0 +1,27 @@
+#!/bin/bash
+
+BSP_TOP_DIR=$PWD
+OUTPUT_DIR=$BSP_TOP_DIR/output
+ROOTFS_DIR=$BSP_TOP_DIR/output/rootfs
+YAFFSTOOL_DIR=$BSP_TOP_DIR/yaffstool
+TOOLCHAIN_DIR=$BSP_TOP_DIR/toolchain
+KERNEL_DIR=$BSP_TOP_DIR/linux
+BUSYBOX_DIR=$BSP_TOP_DIR/busybox
+DRVTEST_DIR=$BSP_TOP_DIR/drvtest
+
+export ARCH=arm
+export CROSS_COMPILE=$TOOLCHAIN_DIR/bin/arm-mini2440-linux-gnueabi-
+
+cd $KERNEL_DIR
+sh build linux
+
+cd $BUSYBOX_DIR
+sh build busybox
+
+cd $DRVTEST_DIR
+make
+make install
+
+cd $BSP_TOP_DIR
+sh make-rootfs.sh
+

@@ -1,0 +1,28 @@
+#!/bin/bash
+
+BSP_TOP_DIR=$PWD
+OUTPUT_DIR=$BSP_TOP_DIR/output
+ROOTFS_DIR=$BSP_TOP_DIR/output/rootfs
+YAFFSTOOL_DIR=$BSP_TOP_DIR/yaffstool
+TOOLCHAIN_DIR=$BSP_TOP_DIR/toolchain
+KERNEL_DIR=$BSP_TOP_DIR/linux
+BUSYBOX_DIR=$BSP_TOP_DIR/busybox
+DRVTEST_DIR=$BSP_TOP_DIR/drvtest
+
+export ARCH=arm
+export CROSS_COMPILE=$TOOLCHAIN_DIR/bin/arm-linux-
+
+cd $KERNEL_DIR
+sh build distclean
+
+cd $BUSYBOX_DIR
+sh build distclean
+
+cd $DRVTEST_DIR
+make clean
+make uninstall
+
+cd $BSP_TOP_DIR
+rm -rf output
+
+

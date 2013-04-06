@@ -1,0 +1,64 @@
+#!/bin/bash
+
+BSP_TOP_DIR=$PWD/..
+OUTPUT_DIR=$BSP_TOP_DIR/output
+ROOTFS_DIR=$BSP_TOP_DIR/output/rootfs
+YAFFSTOOL_DIR=$BSP_TOP_DIR/yaffstool
+TOOLCHAIN_DIR=$BSP_TOP_DIR/toolchain
+
+export ARCH=arm
+export CROSS_COMPILE=$TOOLCHAIN_DIR/bin/arm-mini2440-linux-gnueabi-
+
+show_help()
+{
+    printf "
+build script for mini2440 linux busybox
+
+valid options:
+    help       - show this help
+    menuconfig - menuconfig
+    busybox    - build busybox
+    clean      - clean
+    distclean  - distclean
+"
+}
+
+build_menuconfig()
+{
+    if [ ! -e .config ]; then
+        echo -e "\n\t\tUsing default config... !\n"
+        cp mini2440_defconfig .config
+    fi
+    make menuconfig
+}
+
+build_busybox()
+{
+    if [ ! -e .config ]; then
+        echo -e "\n\t\tUsing default config... !\n"
+        cp mini2440_defconfig .config
+    fi
+
+    make -j2
+    make install
+}
+
+case "$1" in
+menuconfig)
+    build_menuconfig
+    ;;
+busybox)
+    build_busybox
+    ;;
+clean)
+    make clean
+    ;;
+distclean)
+    make distclean
+    ;;
+*)
+    show_help
+    ;;
+esac
+
+

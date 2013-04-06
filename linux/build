@@ -1,0 +1,76 @@
+#!/bin/bash
+
+BSP_TOP_DIR=$PWD/..
+OUTPUT_DIR=$BSP_TOP_DIR/output
+ROOTFS_DIR=$BSP_TOP_DIR/output/rootfs
+YAFFSTOOL_DIR=$BSP_TOP_DIR/yaffstool
+TOOLCHAIN_DIR=$BSP_TOP_DIR/toolchain
+KERNEL_VERSION="3.4.38"
+KERNEL_MOD_DIR=${ROOTFS_DIR}/lib/modules/${KERNEL_VERSION}
+
+export ARCH=arm
+export CROSS_COMPILE=$TOOLCHAIN_DIR/bin/arm-mini2440-linux-gnueabi-
+
+show_help()
+{
+    printf "
+build script for mini2440 linux kernel
+
+valid options:
+    help       - show this help
+    menuconfig - menuconfig
+    kernel     - build kernel
+    clean      - clean
+    distclean  - distclean
+"
+}
+
+build_menuconfig()
+{
+    if [ ! -e .config ]; then
+        echo -e "\n\t\tUsing default config... !\n"
+        make mini2440_defconfig
+    fi
+    make menuconfig
+}
+
+build_linux()
+{
+    if [ ! -e .config ]; then
+        echo -e "\n\t\tUsing default config... !\n"
+        make mini2440_defconfig
+    fi
+
+    make -j2
+
+    mkdir -p ${OUTPUT_DIR}
+    mkdir -p ${KERNEL_MOD_DIR}
+
+    # copy kernel zImage to output dir
+    cp -vf arch/arm/boot/zImage ${OUTPUT_DIR}
+
+    # copy modules .ko to output/rootfs dir
+    for file in $(find drivers sound crypto block fs security net -iname "*.ko"); do
+        cp $file ${KERNEL_MOD_DIR}
+    done
+}
+
+case "$1" in
+menuconfig)
+    build_menuconfig
+    ;;
+linux)
+    build_linux
+    ;;
+clean)
+    make clean
+    ;;
+distclean)
+    make distclean
+    ;;
+*)
+    show_help
+    ;;
+esac
+
+
