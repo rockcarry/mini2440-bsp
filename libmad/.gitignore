@@ -1,0 +1,13 @@
+!.gitignore
+*.o
+*.lo
+.deps/
+.libs/
+config.*
+mad.h
+libmad.la
+libmad.list
+libtool
+stamp-h1
+Makefile
+

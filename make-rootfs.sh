@@ -210,6 +210,7 @@ echo "</html>"                                        >> httpd/index.html
 cp $TOOLCHAIN_DIR/arm-mini2440-linux-gnueabi/sysroot/lib/ld-linux.so.3 lib
 cp $TOOLCHAIN_DIR/arm-mini2440-linux-gnueabi/sysroot/lib/libc.so.6     lib
 cp $TOOLCHAIN_DIR/arm-mini2440-linux-gnueabi/sysroot/lib/libm.so.6     lib
+cp $TOOLCHAIN_DIR/arm-mini2440-linux-gnueabi/sysroot/lib/libgcc_s.so.1 lib
 
 mkdir -p usr/share/udhcpc
 cp $BUSYBOX_DIR/examples/udhcp/simple.script usr/share/udhcpc/default.script

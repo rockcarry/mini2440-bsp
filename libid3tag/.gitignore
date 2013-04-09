@@ -1,0 +1,12 @@
+!.gitignore
+*.o
+*.lo
+.deps/
+.libs/
+config.*
+libid3tag.la
+libid3tag.list
+libtool
+stamp-h1
+Makefile
+

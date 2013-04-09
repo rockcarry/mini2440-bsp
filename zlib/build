@@ -11,7 +11,7 @@ export CC=$TOOLCHAIN_DIR/bin/arm-mini2440-linux-gnueabi-gcc
 show_help()
 {
     printf "
-build script for mini2440 linux busybox
+build script for mini2440 linux zlib
 
 valid options:
     help       - show this help

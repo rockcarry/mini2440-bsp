@@ -1,0 +1,55 @@
+#!/bin/bash
+
+BSP_TOP_DIR=$PWD/..
+OUTPUT_DIR=$BSP_TOP_DIR/output
+ROOTFS_DIR=$BSP_TOP_DIR/output/rootfs
+YAFFSTOOL_DIR=$BSP_TOP_DIR/yaffstool
+TOOLCHAIN_DIR=$BSP_TOP_DIR/toolchain
+
+export PATH=$PATH:$TOOLCHAIN_DIR/bin
+
+show_help()
+{
+    printf "
+build script for mini2440 linux madplay
+
+valid options:
+    help       - show this help
+    madplay    - build madplay
+    clean      - clean
+    distclean  - distclean
+"
+}
+
+build_madplay()
+{
+    if [ ! -e Makefile ]; then
+        ./configure --prefix=$ROOTFS_DIR/usr \
+                    --host=arm-mini2440-linux-gnueabi \
+                    --enable-shared --disable-static \
+                    --disable-debugging \
+                    CPPFLAGS=-I$ROOTFS_DIR/usr/include \
+                    LDFLAGS=-L$ROOTFS_DIR/usr/lib
+    fi
+
+    make
+    make install
+}
+
+case "$1" in
+madplay)
+    build_madplay
+    ;;
+clean)
+    make clean
+    ;;
+distclean)
+    make distclean
+    ;;
+*)
+    show_help
+    ;;
+esac
+
+
+

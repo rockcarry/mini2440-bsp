@@ -9,6 +9,9 @@ KERNEL_DIR=$BSP_TOP_DIR/linux
 BUSYBOX_DIR=$BSP_TOP_DIR/busybox
 DRVTEST_DIR=$BSP_TOP_DIR/drvtest
 ZLIB_DIR=$BSP_TOP_DIR/zlib
+LIBID3TAG_DIR=$BSP_TOP_DIR/libid3tag
+LIBMAD_DIR=$BSP_TOP_DIR/libmad
+MADPLAY_DIR=$BSP_TOP_DIR/madplay
 
 export ARCH=arm
 export CROSS_COMPILE=$TOOLCHAIN_DIR/bin/arm-linux-
@@ -23,6 +26,15 @@ cd $DRVTEST_DIR
 make clean
 
 cd $ZLIB_DIR
+sh build distclean
+
+cd $LIBID3TAG_DIR
+sh build distclean
+
+cd $LIBMAD_DIR
+sh build distclean
+
+cd $MADPLAY_DIR
 sh build distclean
 
 cd $BSP_TOP_DIR
