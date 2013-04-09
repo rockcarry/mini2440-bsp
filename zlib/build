@@ -1,0 +1,50 @@
+#!/bin/bash
+
+BSP_TOP_DIR=$PWD/..
+OUTPUT_DIR=$BSP_TOP_DIR/output
+ROOTFS_DIR=$BSP_TOP_DIR/output/rootfs
+YAFFSTOOL_DIR=$BSP_TOP_DIR/yaffstool
+TOOLCHAIN_DIR=$BSP_TOP_DIR/toolchain
+
+export CC=$TOOLCHAIN_DIR/bin/arm-mini2440-linux-gnueabi-gcc
+
+show_help()
+{
+    printf "
+build script for mini2440 linux busybox
+
+valid options:
+    help       - show this help
+    zlib       - build zlib
+    clean      - clean
+    distclean  - distclean
+"
+}
+
+build_zlib()
+{
+    if [ ! -e Makefile ]; then
+        ./configure --prefix=$ROOTFS_DIR/usr
+    fi
+
+    make
+    make install
+}
+
+case "$1" in
+zlib)
+    build_zlib
+    ;;
+clean)
+    make clean
+    ;;
+distclean)
+    make distclean
+    ;;
+*)
+    show_help
+    ;;
+esac
+
+
+

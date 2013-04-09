@@ -1,0 +1,17 @@
+!.gitignore
+*.o
+*.lo
+*.a
+*.so
+*.so.*
+configure.log
+example
+example64
+examplesh
+minigzip
+minigzip64
+minigzipsh
+zlib.pc
+zconf.h
+Makefile
+

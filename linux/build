@@ -5,6 +5,7 @@ OUTPUT_DIR=$BSP_TOP_DIR/output
 ROOTFS_DIR=$BSP_TOP_DIR/output/rootfs
 YAFFSTOOL_DIR=$BSP_TOP_DIR/yaffstool
 TOOLCHAIN_DIR=$BSP_TOP_DIR/toolchain
+
 KERNEL_VERSION="3.4.38"
 KERNEL_MOD_DIR=${ROOTFS_DIR}/lib/modules/${KERNEL_VERSION}
 
@@ -19,7 +20,7 @@ build script for mini2440 linux kernel
 valid options:
     help       - show this help
     menuconfig - menuconfig
-    kernel     - build kernel
+    linux      - build linux
     clean      - clean
     distclean  - distclean
 "

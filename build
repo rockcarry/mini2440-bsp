@@ -8,6 +8,7 @@ TOOLCHAIN_DIR=$BSP_TOP_DIR/toolchain
 KERNEL_DIR=$BSP_TOP_DIR/linux
 BUSYBOX_DIR=$BSP_TOP_DIR/busybox
 DRVTEST_DIR=$BSP_TOP_DIR/drvtest
+ZLIB_DIR=$BSP_TOP_DIR/zlib
 
 export ARCH=arm
 export CROSS_COMPILE=$TOOLCHAIN_DIR/bin/arm-mini2440-linux-gnueabi-
@@ -19,8 +20,10 @@ cd $BUSYBOX_DIR
 sh build busybox
 
 cd $DRVTEST_DIR
-make
-make install
+make && make install
+
+cd $ZLIB_DIR
+sh build zlib
 
 cd $BSP_TOP_DIR
 sh make-rootfs.sh
