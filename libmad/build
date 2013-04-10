@@ -1,25 +1,12 @@
 #!/bin/bash
+set -e
 
 BSP_TOP_DIR=$PWD/..
 OUTPUT_DIR=$BSP_TOP_DIR/output
 ROOTFS_DIR=$BSP_TOP_DIR/output/rootfs
-YAFFSTOOL_DIR=$BSP_TOP_DIR/yaffstool
 TOOLCHAIN_DIR=$BSP_TOP_DIR/toolchain
 
 export PATH=$PATH:$TOOLCHAIN_DIR/bin
-
-show_help()
-{
-    printf "
-build script for mini2440 linux libmad
-
-valid options:
-    help       - show this help
-    libmad     - build libmad
-    clean      - clean
-    distclean  - distclean
-"
-}
 
 build_libmad()
 {
@@ -37,7 +24,7 @@ build_libmad()
 }
 
 case "$1" in
-libmad)
+"")
     build_libmad
     ;;
 clean)
@@ -45,9 +32,6 @@ clean)
     ;;
 distclean)
     make distclean
-    ;;
-*)
-    show_help
     ;;
 esac
 

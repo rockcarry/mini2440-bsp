@@ -1,9 +1,9 @@
 #!/bin/bash
+set -e
 
 BSP_TOP_DIR=$PWD/..
 OUTPUT_DIR=$BSP_TOP_DIR/output
 ROOTFS_DIR=$BSP_TOP_DIR/output/rootfs
-YAFFSTOOL_DIR=$BSP_TOP_DIR/yaffstool
 TOOLCHAIN_DIR=$BSP_TOP_DIR/toolchain
 
 KERNEL_VERSION="3.4.38"
@@ -11,20 +11,6 @@ KERNEL_MOD_DIR=${ROOTFS_DIR}/lib/modules/${KERNEL_VERSION}
 
 export ARCH=arm
 export CROSS_COMPILE=$TOOLCHAIN_DIR/bin/arm-mini2440-linux-gnueabi-
-
-show_help()
-{
-    printf "
-build script for mini2440 linux kernel
-
-valid options:
-    help       - show this help
-    menuconfig - menuconfig
-    linux      - build linux
-    clean      - clean
-    distclean  - distclean
-"
-}
 
 build_menuconfig()
 {
@@ -57,20 +43,17 @@ build_linux()
 }
 
 case "$1" in
+"")
+    build_linux
+    ;;
 menuconfig)
     build_menuconfig
-    ;;
-linux)
-    build_linux
     ;;
 clean)
     make clean
     ;;
 distclean)
     make distclean
-    ;;
-*)
-    show_help
     ;;
 esac
 

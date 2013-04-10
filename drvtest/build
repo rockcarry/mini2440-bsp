@@ -1,0 +1,15 @@
+#!/bin/bash
+set -e
+
+case "$1" in
+"")
+    make && make install
+    ;;
+clean)
+    make clean
+    ;;
+distclean)
+    make clean
+    ;;
+esac
+
