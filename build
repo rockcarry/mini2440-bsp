@@ -13,6 +13,8 @@ ZLIB_DIR=$BSP_TOP_DIR/zlib
 LIBID3TAG_DIR=$BSP_TOP_DIR/libid3tag
 LIBMAD_DIR=$BSP_TOP_DIR/libmad
 MADPLAY_DIR=$BSP_TOP_DIR/madplay
+ALSALIB_DIR=$BSP_TOP_DIR/alsa-lib
+ALSAUTILS_DIR=$BSP_TOP_DIR/alsa-utils
 
 cd $KERNEL_DIR
 sh build
@@ -33,6 +35,12 @@ cd $LIBMAD_DIR
 sh build
 
 cd $MADPLAY_DIR
+sh build
+
+cd $ALSALIB_DIR
+sh build
+
+cd $ALSAUTILS_DIR
 sh build
 
 cd $BSP_TOP_DIR

@@ -18,8 +18,8 @@ mkdir -p var/run var/lib var/log var/lock var/tmp
 mkdir -p ftpd httpd
 
 # make nodes
-sudo mknod -m 600 dev/console c 5 1
-sudo mknod -m 666 dev/null    c 1 3
+fakeroot mknod -m 600 dev/console c 5 1
+fakeroot mknod -m 666 dev/null    c 1 3
 
 # touch files
 touch etc/inittab
@@ -207,20 +207,18 @@ echo "<p>This page is from mini2440 httpd server.</p>">> httpd/index.html
 echo "</body>"                                        >> httpd/index.html
 echo "</html>"                                        >> httpd/index.html
 
-cp $TOOLCHAIN_DIR/arm-mini2440-linux-gnueabi/sysroot/lib/ld-linux.so.3 lib
-cp $TOOLCHAIN_DIR/arm-mini2440-linux-gnueabi/sysroot/lib/libc.so.6     lib
-cp $TOOLCHAIN_DIR/arm-mini2440-linux-gnueabi/sysroot/lib/libm.so.6     lib
-cp $TOOLCHAIN_DIR/arm-mini2440-linux-gnueabi/sysroot/lib/libgcc_s.so.1 lib
+cp $TOOLCHAIN_DIR/arm-mini2440-linux-gnueabi/sysroot/lib/ld-linux.so.3   lib
+cp $TOOLCHAIN_DIR/arm-mini2440-linux-gnueabi/sysroot/lib/libc.so.6       lib
+cp $TOOLCHAIN_DIR/arm-mini2440-linux-gnueabi/sysroot/lib/libm.so.6       lib
+cp $TOOLCHAIN_DIR/arm-mini2440-linux-gnueabi/sysroot/lib/libgcc_s.so.1   lib
+cp $TOOLCHAIN_DIR/arm-mini2440-linux-gnueabi/sysroot/lib/librt.so.1      lib
+cp $TOOLCHAIN_DIR/arm-mini2440-linux-gnueabi/sysroot/lib/libdl.so.2      lib
+cp $TOOLCHAIN_DIR/arm-mini2440-linux-gnueabi/sysroot/lib/libpthread.so.0 lib
 
 mkdir -p usr/share/udhcpc
 cp $BUSYBOX_DIR/examples/udhcp/simple.script usr/share/udhcpc/default.script
 chmod a+x usr/share/udhcpc/default.script
 
 cd $BSP_TOP_DIR
-WHOAMI=`whoami`
-sudo chown -R root:root output/rootfs
-sudo $YAFFSTOOL_DIR/mkyaffs2image-128M output/rootfs output/rootfs.yaffs
-sudo chown -R $WHOAMI:$WHOAMI output/rootfs
-sudo chown $WHOAMI:$WHOAMI output/rootfs.yaffs
-sudo chmod 755 output/rootfs.yaffs
+fakeroot $YAFFSTOOL_DIR/mkyaffs2image-128M output/rootfs output/rootfs.yaffs
 

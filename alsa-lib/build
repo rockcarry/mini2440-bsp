@@ -1,0 +1,39 @@
+#!/bin/bash
+set -e
+
+BSP_TOP_DIR=$PWD/..
+OUTPUT_DIR=$BSP_TOP_DIR/output
+ROOTFS_DIR=$BSP_TOP_DIR/output/rootfs
+TOOLCHAIN_DIR=$BSP_TOP_DIR/toolchain
+
+export PATH=$PATH:$TOOLCHAIN_DIR/bin
+
+build_alsalib()
+{
+    if [ ! -e Makefile ]; then
+        ./configure --prefix=$ROOTFS_DIR/usr \
+                    --host=arm-mini2440-linux-gnueabi \
+                    --enable-shared --disable-static \
+                    --disable-debugging --disable-nls --disable-python \
+                    --with-alsa-devdir=/dev
+        sed "s#$ROOTFS_DIR/#/#g" include/config.h > include/config.new
+		mv include/config.new include/config.h
+    fi
+
+    make && make install
+}
+
+case "$1" in
+"")
+    build_alsalib
+    ;;
+clean)
+    make clean
+    ;;
+distclean)
+    make distclean
+    ;;
+esac
+
+
+

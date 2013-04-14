@@ -47,7 +47,11 @@ const char* FAST_FUNC printable_string(uni_stat_t *stats, const char *str)
 			unsigned char c = *d;
 			if (c == '\0')
 				break;
+#if 0
 			if (c < ' ' || c >= 0x7f)
+#else
+			if (c < ' ')
+#endif
 				*d = '?';
 			d++;
 		}

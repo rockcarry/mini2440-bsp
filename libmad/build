@@ -14,13 +14,12 @@ build_libmad()
         ./configure --prefix=$ROOTFS_DIR/usr \
                     --host=arm-mini2440-linux-gnueabi \
                     --enable-shared --disable-static \
-                    --disable-debugging \
+                    --disable-debugging --disable-nls \
                     CPPFLAGS=-I$ROOTFS_DIR/usr/include \
                     LDFLAGS=-L$ROOTFS_DIR/usr/lib
     fi
 
-    make
-    make install
+    make && make install
 }
 
 case "$1" in

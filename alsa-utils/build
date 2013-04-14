@@ -1,0 +1,42 @@
+#!/bin/bash
+set -e
+
+BSP_TOP_DIR=$PWD/..
+OUTPUT_DIR=$BSP_TOP_DIR/output
+ROOTFS_DIR=$BSP_TOP_DIR/output/rootfs
+TOOLCHAIN_DIR=$BSP_TOP_DIR/toolchain
+
+export PATH=$PATH:$TOOLCHAIN_DIR/bin
+
+build_alsautils()
+{
+    if [ ! -e Makefile ]; then
+        ./configure --prefix=$ROOTFS_DIR/usr \
+                    --host=arm-mini2440-linux-gnueabi \
+                    --enable-shared --disable-static \
+                    --disable-debugging --disable-nls \
+                    --disable-alsamixer --disable-xmlto \
+                    --without-asound-state-dir --without-udev-rules-dir \
+                    --with-alsa-inc-prefix=$ROOTFS_DIR/usr/include \
+                    --with-alsa-prefix=$ROOTFS_DIR/usr/lib \
+                    CPPFLAGS=-I$ROOTFS_DIR/usr/include/ncurses \
+                    LDFLAGS=-L$ROOTFS_DIR/usr/lib
+    fi
+
+    make && make install
+}
+
+case "$1" in
+"")
+    build_alsautils
+    ;;
+clean)
+    make clean
+    ;;
+distclean)
+    make distclean
+    ;;
+esac
+
+
+
