@@ -1,9 +1,4 @@
 !.gitignore
-*.o
-*.lo
-*.a
-*.so
-*.so.*
 configure.log
 example
 example64

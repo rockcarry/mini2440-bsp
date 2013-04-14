@@ -1,2 +1,10 @@
+!.gitignore
+*.o
+*.lo
+*.a
+*.so
+*.so.*
+.deps/
+.libs/
 output/
 

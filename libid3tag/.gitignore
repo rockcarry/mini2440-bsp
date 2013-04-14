@@ -1,8 +1,4 @@
 !.gitignore
-*.o
-*.lo
-.deps/
-.libs/
 config.*
 libid3tag.la
 libid3tag.list

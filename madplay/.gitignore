@@ -1,9 +1,4 @@
 !.gitignore
-*.o
-*.lo
-.deps/
-.libs/
-po/
 config.*
 madplay.la
 madplay.list
@@ -11,4 +6,6 @@ madplay
 libtool
 stamp-h1
 Makefile
+po/Makefile.in
+po/POTFILES
 

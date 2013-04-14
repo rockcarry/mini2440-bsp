@@ -1,8 +1,4 @@
 !.gitignore
-*.o
-*.lo
-.deps/
-.libs/
 config.*
 mad.h
 libmad.la
